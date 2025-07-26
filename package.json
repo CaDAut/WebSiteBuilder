@@ -1,0 +1,109 @@
+{
+  "name": "websitebuilder",
+  "version": "1.0.0",
+  "description": "Construtor open source de web sites com drag-and-drop",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:server\"",
+    "dev:web": "vite",
+    "dev:server": "nodemon src/server/index.js",
+    "dev:electron": "concurrently \"npm run dev:web\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "npm run build:web && npm run build:electron",
+    "build:web": "vite build",
+    "build:electron": "electron-builder",
+    "build:server": "babel src/server --out-dir dist/server",
+    "start": "node dist/server/index.js",
+    "start:electron": "electron .",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint src --ext .ts,.tsx,.js,.jsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "db:migrate": "node src/database/migrate.js",
+    "db:seed": "node src/database/seed.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-router-dom": "^6.14.2",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "jsonwebtoken": "^9.0.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1",
+    "dotenv": "^16.3.1",
+    "helmet": "^7.0.0",
+    "compression": "^1.7.4",
+    "express-rate-limit": "^6.8.1",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "zustand": "^4.4.1",
+    "lucide-react": "^0.263.1",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^1.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.5",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.13",
+    "@types/multer": "^1.4.7",
+    "@types/compression": "^1.7.2",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "concurrently": "^8.2.0",
+    "electron": "^25.3.1",
+    "electron-builder": "^24.6.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "nodemon": "^3.0.1",
+    "postcss": "^8.4.27",
+    "prettier": "^3.0.0",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.5",
+    "vitest": "^0.34.1",
+    "wait-on": "^7.0.1"
+  },
+  "keywords": [
+    "website-builder",
+    "drag-and-drop",
+    "react",
+    "electron",
+    "open-source"
+  ],
+  "author": "CaDAut",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CaDAut/WebSiteBuilder.git"
+  },
+  "homepage": "https://github.com/CaDAut/WebSiteBuilder",
+  "build": {
+    "appId": "com.cadaut.websitebuilder",
+    "productName": "WebSite Builder",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "src/electron/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
